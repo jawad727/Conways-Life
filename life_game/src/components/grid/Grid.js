@@ -38,7 +38,7 @@ class Grid extends Component {
     CELL_SIZE: 10,
     WIDTH: 500,
     HEIGHT: 500,
-    counter: 12
+    counter: 0
   };
 
   rows = this.state.HEIGHT / this.state.CELL_SIZE;
@@ -68,16 +68,21 @@ class Grid extends Component {
 
   // Create cells from this.board
   makeCells() {
-    let cells = [...this.state.cells];
-
+    let cells_copy = [];
+    // if (this.state.counter == 0) {
+    //   let cells_copy = [...this.state.cells]
+    // } else {
+    //   let cells_copy = []
+    // }
     for (let y = 0; y < this.rows; y++) {
       for (let x = 0; x < this.cols; x++) {
         if (this.board[y][x]) {
-          cells.push({ x: x, y: y });
+          cells_copy.push({ x: x, y: y });
         }
       }
     }
-    return cells;
+    // console.log(`CELLS COPY: ${cells_copy}`);
+    return cells_copy;
   }
 
   getElementOffset() {
@@ -142,6 +147,23 @@ class Grid extends Component {
     this.setState({
       counter: 0,
       cells: this.makeCells()
+    });
+  };
+
+  handleRandomTEST = () => {
+    smile.forEach(item => {
+      this.board[item.y][item.x] = true;
+    });
+    this.setState({
+      counter: 0,
+      cells: this.makeCells()
+    });
+  };
+
+  handlePreset = () => {
+    this.setState({
+      cells: smile,
+      counter: 0
     });
   };
 
@@ -233,7 +255,7 @@ class Grid extends Component {
               CELL_SIZE={this.state.CELL_SIZE}
               x={cell.x}
               y={cell.y}
-              key={`${cell.x}, ${cell.y}`}
+              key={Math.floor(Math.random() * Math.floor(100000000))}
             />
           ))}
         </div>
@@ -259,13 +281,7 @@ class Grid extends Component {
           <button className='button' onClick={this.handleClear}>
             Clear
           </button>{" "}
-          <button
-            onClick={() => {
-              this.setState({ cells: smile });
-            }}
-          >
-            PRESET
-          </button>
+          <button onClick={this.handleRandomTEST}>PRESET</button>
         </div>
       </div>
     );
