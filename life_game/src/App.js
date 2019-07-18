@@ -1,7 +1,8 @@
-import React from 'react';
-import Grid from './components/grid/Grid.js'
+import React from "react";
+import Grid from "./components/grid/Grid.js";
+import Rules from "./components/rules/Rules";
 
-import './App.css';
+import "./App.css";
 
 function App() {
   return (
